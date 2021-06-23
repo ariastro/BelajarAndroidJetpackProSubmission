@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -9,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.undeadcoder.moviecatalogue1"
+        applicationId "com.undeadcoder.moviecatalogue"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -19,6 +20,19 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    flavorDimensions "default"
+    productFlavors {
+        development {
+            buildConfigField "String", 'BASE_URL', BASE_URL
+            buildConfigField "String", 'IMAGE_URL', IMAGE_URL
+            buildConfigField "String", 'API_KEY', API_KEY
+        }
+        production {
+            buildConfigField "String", 'BASE_URL', BASE_URL
+            buildConfigField "String", 'IMAGE_URL', IMAGE_URL
+            buildConfigField "String", 'API_KEY', API_KEY
+        }
     }
     buildTypes {
         release {
@@ -49,6 +63,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperRefreshLayoutVersion"
+
+    // Lottie - Animation
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     //testing
     testImplementation "junit:junit:$junitVersion"
@@ -58,5 +76,29 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$androidTestVersion"
     androidTestImplementation "androidx.test.ext:junit:$junitExtversion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation "androidx.arch.core:core-testing:$androidCoreTestVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+    implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
+
+    // moshi
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+
+    // networking
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    // koin
+    implementation "org.koin:koin-android-viewmodel:$koinVersion"
+    implementation "org.koin:koin-android:$koinVersion"
 
 }

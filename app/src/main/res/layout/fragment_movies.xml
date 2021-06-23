@@ -14,8 +14,8 @@
 		android:clipToPadding="false"
 		android:paddingVertical="12dp"
 		app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-		app:spanCount="2"
 		tools:itemCount="5"
+		app:spanCount="2"
 		tools:listitem="@layout/item_movie" />
 
 </RelativeLayout>
