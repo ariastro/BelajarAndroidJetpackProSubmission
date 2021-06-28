@@ -5,13 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.undeadcoder.moviecatalogue.R
 import com.undeadcoder.moviecatalogue.base.BaseFragment
-import com.undeadcoder.moviecatalogue.data.TvShowEntity
+import com.undeadcoder.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.undeadcoder.moviecatalogue.databinding.FragmentTvShowsBinding
 import com.undeadcoder.moviecatalogue.ui.detail.DetailActivity
 import com.undeadcoder.moviecatalogue.ui.detail.DetailActivity.Companion.EXTRA_DATA_TYPE
 import com.undeadcoder.moviecatalogue.ui.detail.DetailActivity.Companion.EXTRA_ID
+import com.undeadcoder.moviecatalogue.ui.main.MainActivity
 import com.undeadcoder.moviecatalogue.utils.Constants.TV_SHOWS
+import com.undeadcoder.moviecatalogue.vo.Status
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TvShowsFragment : BaseFragment(), TvShowAdapter.OnItemClickCallback {
@@ -28,13 +32,23 @@ class TvShowsFragment : BaseFragment(), TvShowAdapter.OnItemClickCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+            (activity as MainActivity).setToolbarTitle(getString(R.string.popular_tv_show))
 
             setLoading(true)
             adapter = TvShowAdapter(this)
-            viewModel.getTvShows().observe(viewLifecycleOwner, { tvShows ->
-                setLoading(false)
-                adapter.setTvShows(tvShows)
-                adapter.notifyDataSetChanged()
+            viewModel.getTvShows().observe(viewLifecycleOwner, {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        setLoading(false)
+                        adapter.submitList(it.data)
+                        adapter.notifyDataSetChanged()
+                    }
+                    Status.LOADING -> setLoading(true)
+                    Status.ERROR -> {
+                        setLoading(false)
+                        Toast.makeText(context, getString(R.string.terjadi_kesalahan), Toast.LENGTH_SHORT).show()
+                    }
+                }
             })
             binding.rvTvShows.setHasFixedSize(true)
             binding.rvTvShows.adapter = adapter

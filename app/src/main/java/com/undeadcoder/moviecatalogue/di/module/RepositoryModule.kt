@@ -4,5 +4,5 @@ import com.undeadcoder.moviecatalogue.data.source.MovieRepository
 import org.koin.dsl.module
 
 val repoModule = module {
-    single { MovieRepository(get()) }
+    single { MovieRepository(get(), get(), get()) }
 }

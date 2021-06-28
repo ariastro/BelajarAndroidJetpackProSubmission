@@ -3,10 +3,12 @@ package com.undeadcoder.moviecatalogue.ui.content.tvshows
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.undeadcoder.moviecatalogue.data.TvShowEntity
+import androidx.paging.PagedList
 import com.undeadcoder.moviecatalogue.data.source.MovieRepository
-import com.undeadcoder.moviecatalogue.utils.DataDummy
-import org.junit.Assert
+import com.undeadcoder.moviecatalogue.data.source.local.entity.TvShowEntity
+import com.undeadcoder.moviecatalogue.vo.Resource
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,7 +30,10 @@ class TvShowsViewModelTest {
     private lateinit var repository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<List<TvShowEntity>>
+    private lateinit var observer: Observer<Resource<PagedList<TvShowEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<TvShowEntity>
 
     @Before
     fun setUp() {
@@ -37,15 +42,16 @@ class TvShowsViewModelTest {
 
     @Test
     fun getTvShows() {
-        val dummyTvShow = DataDummy.generateDummyTvShows()
-        val tvShows = MutableLiveData<List<TvShowEntity>>()
+        val dummyTvShow = Resource.success(pagedList)
+        `when`(dummyTvShow.data?.size).thenReturn(3)
+        val tvShows = MutableLiveData<Resource<PagedList<TvShowEntity>>>()
         tvShows.value = dummyTvShow
 
-        `when`(repository.getTVShows()).thenReturn(tvShows)
-        val tvShow = viewModel.getTvShows().value
-        verify(repository).getTVShows()
-        Assert.assertNotNull(tvShow)
-        Assert.assertEquals(3, tvShow?.size)
+        `when`(repository.getTvShows()).thenReturn(tvShows)
+        val tvShow = viewModel.getTvShows().value?.data
+        verify(repository).getTvShows()
+        assertNotNull(tvShow)
+        assertEquals(3, tvShow?.size)
 
         viewModel.getTvShows().observeForever(observer)
         verify(observer).onChanged(dummyTvShow)

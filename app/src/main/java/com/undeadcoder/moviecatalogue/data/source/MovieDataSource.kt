@@ -1,18 +1,27 @@
 package com.undeadcoder.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
-import com.undeadcoder.moviecatalogue.data.DetailEntity
-import com.undeadcoder.moviecatalogue.data.MovieEntity
-import com.undeadcoder.moviecatalogue.data.TvShowEntity
+import androidx.paging.PagedList
+import com.undeadcoder.moviecatalogue.data.source.local.entity.MovieEntity
+import com.undeadcoder.moviecatalogue.data.source.local.entity.TvShowEntity
+import com.undeadcoder.moviecatalogue.vo.Resource
 
 interface MovieDataSource {
 
-    fun getMovies(): LiveData<List<MovieEntity>>
+    fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>>
 
-    fun getDetailMovie(movieId: String): LiveData<DetailEntity>
+    fun getDetailMovie(movieId: Int): LiveData<Resource<MovieEntity>>
 
-    fun getTVShows(): LiveData<List<TvShowEntity>>
+    fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>>
 
-    fun getDetailTvShow(tvShowId: String): LiveData<DetailEntity>
+    fun setFavoriteMovie(movie: MovieEntity)
+
+    fun getTvShows(): LiveData<Resource<PagedList<TvShowEntity>>>
+
+    fun getDetailTvShow(tvShowId: Int): LiveData<Resource<TvShowEntity>>
+
+    fun getFavoriteTvShows(): LiveData<PagedList<TvShowEntity>>
+
+    fun setFavoriteTvShow(tvShow: TvShowEntity)
 
 }

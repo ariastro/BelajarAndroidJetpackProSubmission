@@ -1,5 +1,6 @@
 package com.undeadcoder.moviecatalogue.di.module
 
+import com.undeadcoder.moviecatalogue.ui.content.favorites.FavoriteViewModel
 import com.undeadcoder.moviecatalogue.ui.content.movies.MoviesViewModel
 import com.undeadcoder.moviecatalogue.ui.content.tvshows.TvShowsViewModel
 import com.undeadcoder.moviecatalogue.ui.detail.DetailViewModel
@@ -10,4 +11,5 @@ val viewModelModule = module {
     viewModel { MoviesViewModel(get()) }
     viewModel { TvShowsViewModel(get()) }
     viewModel { DetailViewModel(get()) }
+    viewModel { FavoriteViewModel(get()) }
 }

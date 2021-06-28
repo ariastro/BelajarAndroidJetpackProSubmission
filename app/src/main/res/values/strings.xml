@@ -1,11 +1,18 @@
 <resources>
-	<string name="app_name">Movie Catalogue</string>
-	<string name="my_movie_catalogue">My Movie Catalogue</string>
-	<string name="movies">Movies</string>
-	<string name="tv_shows">TV Shows</string>
-	<string name="overview">Overview</string>
-	<string name="genre">Genre</string>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="my_movie_catalogue">My Movie Catalogue</string>
+    <string name="movies">Movies</string>
+    <string name="tv_shows">TV Shows</string>
+    <string name="overview">Overview</string>
+    <string name="genre">Genre</string>
     <string name="detail_movie">Detail Movie</string>
-	<string name="detail_tv_show">Detail TV Show</string>
+    <string name="detail_tv_show">Detail TV Show</string>
     <string name="release_date">Release Date</string>
+    <string name="favorites">Favorites</string>
+    <string name="terjadi_kesalahan">Terjadi kesalahan!</string>
+    <string name="no_data_found">No data found!</string>
+	<string name="now_playing_movies">Now Playing Movies</string>
+    <string name="popular_tv_show">Popular TV Shows</string>
+	<string name="favorite_movies">Favorite Movies</string>
+    <string name="favorite_tv_shows">Favorite TV Shows</string>
 </resources>

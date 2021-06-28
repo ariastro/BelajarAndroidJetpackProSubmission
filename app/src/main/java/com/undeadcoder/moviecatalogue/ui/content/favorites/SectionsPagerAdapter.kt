@@ -1,4 +1,4 @@
-package com.undeadcoder.moviecatalogue.ui.main
+package com.undeadcoder.moviecatalogue.ui.content.favorites
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.undeadcoder.moviecatalogue.R
-import com.undeadcoder.moviecatalogue.ui.content.movies.MoviesFragment
-import com.undeadcoder.moviecatalogue.ui.content.tvshows.TvShowsFragment
+import com.undeadcoder.moviecatalogue.ui.content.favorites.movies.FavoriteMoviesFragment
+import com.undeadcoder.moviecatalogue.ui.content.favorites.tvshows.FavoriteTvShowsFragment
 
 class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
@@ -18,8 +18,8 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
 
     override fun getItem(position: Int): Fragment =
             when (position) {
-                0 -> MoviesFragment()
-                1 -> TvShowsFragment()
+                0 -> FavoriteMoviesFragment()
+                1 -> FavoriteTvShowsFragment()
                 else -> Fragment()
             }
 

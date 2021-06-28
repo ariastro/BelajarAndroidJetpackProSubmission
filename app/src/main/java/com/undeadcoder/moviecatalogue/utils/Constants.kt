@@ -7,4 +7,6 @@ object Constants {
 
     const val TIME_OUT = 30L
 
+    const val DATABASE_NAME = "MovieCatalogueDB"
+
 }

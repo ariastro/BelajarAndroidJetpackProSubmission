@@ -27,6 +27,11 @@ buildscript {
         lifecycleVersion = "2.2.0"
         okhttpVersion = "4.9.0"
         koinVersion = "2.2.2"
+
+        roomVersion = '2.2.3'
+        roomRuntimeVersion = '2.3.0'
+        pagingVersion = '2.1.1'
+        navigationVersion = '2.3.5'
     }
     repositories {
         google()

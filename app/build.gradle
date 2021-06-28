@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
 
@@ -100,5 +100,15 @@ dependencies {
     // koin
     implementation "org.koin:koin-android-viewmodel:$koinVersion"
     implementation "org.koin:koin-android:$koinVersion"
+
+    // room
+    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    // paging
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+
+    // navigation
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
 }

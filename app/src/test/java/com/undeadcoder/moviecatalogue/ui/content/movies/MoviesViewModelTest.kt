@@ -3,13 +3,15 @@ package com.undeadcoder.moviecatalogue.ui.content.movies
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.undeadcoder.moviecatalogue.data.MovieEntity
+import androidx.paging.PagedList
 import com.undeadcoder.moviecatalogue.data.source.MovieRepository
-import com.undeadcoder.moviecatalogue.utils.DataDummy
-import org.junit.Test
-import org.junit.Assert.*
+import com.undeadcoder.moviecatalogue.data.source.local.entity.MovieEntity
+import com.undeadcoder.moviecatalogue.vo.Resource
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
@@ -28,7 +30,10 @@ class MoviesViewModelTest {
     private lateinit var repository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<List<MovieEntity>>
+    private lateinit var observer: Observer<Resource<PagedList<MovieEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
@@ -37,12 +42,13 @@ class MoviesViewModelTest {
 
     @Test
     fun getMovies() {
-        val dummyMovies = DataDummy.generateDummyMovies()
-        val movies = MutableLiveData<List<MovieEntity>>()
+        val dummyMovies = Resource.success(pagedList)
+        `when`(dummyMovies.data?.size).thenReturn(3)
+        val movies = MutableLiveData<Resource<PagedList<MovieEntity>>>()
         movies.value = dummyMovies
 
         `when`(repository.getMovies()).thenReturn(movies)
-        val movie = viewModel.getMovies().value
+        val movie = viewModel.getMovies().value?.data
         verify(repository).getMovies()
         assertNotNull(movie)
         assertEquals(3, movie?.size)
